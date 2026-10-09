@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A Letter For You</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+Bengali:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--rose:#ff5c8a;--gold:#f6d6a8;--paper:#fff6ee;--ink:#4a1d2e;--deep:#c2185b;--glass:rgba(255,255,255,.08);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;margin:0}
+body{background:radial-gradient(circle at 50% 15%,#3b0d2a,#1a0612 75%) fixed;background-color:#1a0612;color:var(--gold);font-family:'Cormorant Garamond',Georgia,serif;min-height:100vh;overflow-x:hidden}
+#sky{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.stage{position:relative;z-index:1;max-width:440px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 16px 70px;text-align:center}
+.tools{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));right:12px;z-index:5;display:flex;gap:8px}
+.tools button{width:42px;height:42px;padding:0;font-size:1.2rem;background:var(--glass);box-shadow:none;border:1px solid #ffffff30;backdrop-filter:blur(6px)}
+button{font-family:inherit;font-size:1.15rem;border:0;border-radius:30px;padding:12px 24px;cursor:pointer;background:linear-gradient(135deg,#ff5c8a,#c2185b);color:#fff;box-shadow:0 8px 20px #c2185b66;transition:transform .25s}
+button:active{filter:brightness(.9)}
+.hint{font-family:'Great Vibes',cursive;font-size:2.1rem;margin-bottom:30px;animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.5;transform:scale(1.05)}}
+.env{position:relative;width:280px;height:190px;cursor:pointer;transition:transform .6s,opacity .6s}
+.env .back{position:absolute;inset:0;background:linear-gradient(135deg,#c2185b,#880e4f);border-radius:8px;box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.env .front{position:absolute;inset:0;border-radius:8px;background:linear-gradient(135deg,#d81b60,#ad1457);clip-path:polygon(0 0,50% 55%,100% 0,100% 100%,0 100%);z-index:3}
+.env .flap{position:absolute;top:0;left:0;width:100%;height:60%;background:linear-gradient(#e91e63,#c2185b);clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform .7s,z-index 0s .35s;z-index:4}
+.env .seal{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:2.2rem;z-index:5;transition:opacity .3s;animation:beat 1.4s infinite}
+@keyframes beat{50%{transform:translate(-50%,-50%) scale(1.2)}}
+.env.open .flap{transform:rotateX(180deg);z-index:1}
+.env.open .seal{opacity:0}
+.env.gone{transform:translateY(60px) scale(.8);opacity:0;pointer-events:none;height:0;overflow:hidden}
+.letter{display:none;width:100%;background:var(--paper);color:var(--ink);border-radius:14px;padding:32px 24px;text-align:left;box-shadow:0 25px 60px rgba(0,0,0,.55);border:1px solid #f3c9d6;animation:in .9s ease both}
+.letter.show{display:block}
+@keyframes in{from{opacity:0;transform:translateY(40px) scale(.96)}}
+.letter h1{font-family:'Great Vibes',cursive;font-weight:400;font-size:2.4rem;color:var(--deep);margin-bottom:12px}
+.letter p{font-size:1.25rem;line-height:1.65;margin-bottom:14px}
+.cursor::after{content:'|';animation:blink 1s infinite;color:var(--deep)}
+@keyframes blink{50%{opacity:0}}
+.sig{font-family:'Great Vibes',cursive;font-size:2.2rem;color:var(--deep);text-align:right;opacity:0;transition:opacity 1.5s}
+.sig.on{opacity:1}
+.skip{font-size:.9rem;color:#a06a7e;text-align:center;margin-top:6px}
+.sec{display:none;width:100%;margin-top:42px}
+.sec.on{display:block;animation:in 1s both}
+.sec h2{font-family:'Great Vibes',cursive;font-weight:400;font-size:2.1rem;color:var(--rose);margin-bottom:12px}
+.sm{font-size:1rem;opacity:.8;margin-bottom:12px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card{height:112px;perspective:600px;cursor:pointer}
+.card>div{position:relative;width:100%;height:100%;transition:transform .7s;transform-style:preserve-3d}
+.card.f>div{transform:rotateY(180deg)}
+.card span{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;align-items:center;justify-content:center;border-radius:14px;padding:10px;font-size:1.08rem;line-height:1.25}
+.card .a{background:linear-gradient(135deg,#d81b60,#880e4f);font-size:2rem;color:#fff}
+.card .b{background:var(--paper);color:var(--ink);transform:rotateY(180deg)}
+.sec h2.bn{font-family:'Noto Serif Bengali','Hind Siliguri',serif;font-size:1.35rem;font-weight:600;line-height:1.5}
+.pbox{background:var(--glass);border:1px solid #ffffff22;border-radius:16px;padding:22px 14px;backdrop-filter:blur(4px)}
+.poem{font-family:'Noto Serif Bengali','Hind Siliguri',serif;font-size:1.15rem;line-height:2;color:#fff}
+.st{margin-bottom:18px}
+.st:last-child{margin-bottom:0}
+.v{opacity:0;transform:translateY(12px);transition:opacity 1.2s,transform 1.2s}
+.v.show{opacity:1;transform:none}
+.cd{display:flex;gap:8px;justify-content:center}
+.cd div{background:var(--glass);border:1px solid #ffffff22;border-radius:12px;padding:10px 4px;width:72px}
+.cd b{display:block;font-size:1.8rem;color:#fff}
+.cd small{font-size:.75rem;letter-spacing:1px;text-transform:uppercase}
+.bar{height:14px;border-radius:9px;background:var(--glass);overflow:hidden;margin:12px 0 8px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ff5c8a,#ffd36e)}
+.big{font-size:1.6rem;color:#fff;margin-bottom:14px;min-height:2rem}
+#mbtn{touch-action:none;user-select:none;-webkit-user-select:none}
+.ask{min-height:150px;display:flex;gap:16px;justify-content:center;align-items:center;flex-wrap:wrap}
+#no{background:#6b3a4d;box-shadow:none}
+.fin{display:none;font-family:'Great Vibes',cursive;font-size:2.4rem;color:var(--rose);line-height:1.3}
+.fin.on{display:block;animation:in 1s both}
+.fin button{margin-top:18px;font-family:'Cormorant Garamond',serif}
+.modal{position:fixed;inset:0;z-index:10;background:#000b;display:none;align-items:center;justify-content:center;padding:16px}
+.modal.on{display:flex}
+.box{background:#2a0b1e;border:1px solid #ffffff30;border-radius:16px;padding:20px;width:100%;max-width:400px;max-height:90vh;overflow:auto;text-align:left}
+.box h3{font-family:'Great Vibes',cursive;font-weight:400;font-size:1.9rem;color:var(--rose)}
+.box label{display:block;font-size:1rem;margin:10px 0 4px}
+.box input,.box textarea{width:100%;padding:10px;border-radius:10px;border:1px solid #ffffff30;background:#1a0612;color:#fff;font:inherit;font-size:1.05rem}
+.row{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.row button{padding:10px 18px;font-size:1rem}
+</style>
+</head>
+<body>
+<canvas id="sky"></canvas>
+<div class="tools"><button id="gear" style="display:none" aria-label="Customize">⚙️</button><button id="mus" aria-label="Music">🔇</button></div>
+
+<div class="stage">
+  <div class="hint" id="hint">A letter is waiting for you…</div>
+  <div class="env" id="env"><div class="back"></div><div class="flap"></div><div class="front"></div><div class="seal">💌</div></div>
+
+  <div class="letter" id="letter">
+    <h1 id="to"></h1>
+    <div id="body"></div>
+    <div class="sig" id="sig"></div>
+    <div class="skip" id="skip">tap the letter to read faster</div>
+  </div>
+
+  <div class="sec" id="s0"><h2 class="bn">তোমার জন্য এক টুকরো কবিতা</h2><div class="pbox poem" id="pbody"></div></div>
+
+  <div class="sec" id="s1"><h2>Reasons I love you</h2><div class="sm">Tap each heart 💗</div><div class="grid" id="grid"></div></div>
+
+  <div class="sec" id="s2"><h2>Since you stole my heart</h2>
+    <div class="cd"><div><b id="d1">0</b><small>days</small></div><div><b id="d2">0</b><small>hours</small></div><div><b id="d3">0</b><small>mins</small></div><div><b id="d4">0</b><small>secs</small></div></div></div>
+
+  <div class="sec" id="s3"><h2>How much do I love you?</h2>
+    <div class="bar"><i id="fill"></i></div><div class="big" id="mtxt">0%</div>
+    <button id="mbtn">Press &amp; hold 💞</button></div>
+
+  <div class="sec" id="s4"><h2>So… will you be mine?</h2>
+    <div class="ask" id="askbox"><button id="yes">Yes, forever 💖</button><button id="no">Let me think…</button></div>
+    <div class="fin" id="fin">You just made me the happiest person alive ❤️<br><button id="again">Read it again ↺</button></div></div>
+</div>
+
+<div class="modal" id="ed"><div class="box">
+  <h3>Make it yours</h3>
+  <label for="fto">Her name</label><input id="fto" placeholder="e.g. Priya">
+  <label for="ffrom">Your name</label><input id="ffrom" placeholder="e.g. Rahul">
+  <label for="fsince">Special date (shows a live counter)</label><input id="fsince" type="date">
+  <label for="fmsg">Your own letter (one paragraph per line, optional)</label><textarea id="fmsg" rows="5" placeholder="Leave empty to use the default letter"></textarea>
+  <label for="fpoem">Your own Bengali kobita (one line per row, optional)</label><textarea id="fpoem" rows="4" placeholder="Leave empty to use the default kobita"></textarea>
+  <label for="flink">Link to send her</label><input id="flink" readonly>
+  <div class="row"><button id="prev">Preview</button><button id="copy">Copy link</button><button id="close" style="background:#6b3a4d;box-shadow:none">Close</button></div>
+</div></div>
+
+<script>
+const $=id=>document.getElementById(id),q=new URLSearchParams(location.search);
+const TO=q.get('to')||'My Dearest',FROM=q.get('from')||'Yours, always',SINCE=q.get('since');
+const DEF=["I have been trying to find the right words for a long time, and I finally understood something: no words are ever enough for you.",
+"You are the first thought in my morning and the last one before I sleep. Somewhere between your smile and your laugh, my whole world quietly rearranged itself around you.",
+"Everyone has a picture of their dream girl in their heart. Mine kept changing, until the day I saw you. Then it stopped, because it had finally become real.",
+"With you, ordinary moments feel like magic: a simple chat, a silent look, a shared cup of tea. I want a lifetime of those moments, all with you.",
+"I promise to hold your hand through the sunny days and the stormy ones, to be your biggest fan, your safe place, and your best friend.",
+"So here is my heart, wrapped in this little letter. It has your name written all over it."];
+const R=["Your smile fixes my worst days.","The way you laugh at your own jokes.","You make me want to be better.","Your kindness to everyone around you.","How safe I feel when you are near.","Your eyes. I could get lost forever.","You are my peace in all the chaos.","Simply because you are you."];
+const custom=(q.get('msg')||'').split(/\n|\|/).map(s=>s.trim()).filter(Boolean);
+const L=custom.length?custom:DEF;
+if(q.get('to')){document.title='A letter for '+TO;$('hint').textContent=TO+', a letter is waiting for you…'}
+$('to').textContent=TO.replace(/,?$/,',');
+
+/* ---------- sky: stars, rising hearts, shooting stars, bursts ---------- */
+const cv=$('sky'),cx=cv.getContext('2d'),C=['#ff5c8a','#ff9ebb','#ffd36e','#ffffff','#e91e63'];
+let W,H,stars=[],P=[];
+function size(){const d=window.devicePixelRatio||1;W=innerWidth;H=innerHeight;cv.width=W*d;cv.height=H*d;cx.setTransform(d,0,0,d,0,0);
+ stars=Array.from({length:90},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.5+.4,p:Math.random()*6}))}
+addEventListener('resize',size);size();
+function heart(x,y,s,c,a){cx.save();cx.translate(x,y);cx.scale(s,s);cx.globalAlpha=a;cx.fillStyle=c;cx.beginPath();
+ cx.moveTo(0,-.35);cx.bezierCurveTo(0,-1,-1,-1,-1,-.3);cx.bezierCurveTo(-1,.3,-.3,.6,0,1);cx.bezierCurveTo(.3,.6,1,.3,1,-.3);cx.bezierCurveTo(1,-1,0,-1,0,-.35);cx.fill();cx.restore()}
+function burst(x,y,n){for(let i=0;i<n;i++){const a=Math.random()*6.28,s=2+Math.random()*4;P.push({k:'b',x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-2,s:3+Math.random()*5,l:1,c:C[i%5]})}}
+function loop(){cx.clearRect(0,0,W,H);
+ for(const s of stars){s.p+=.03;cx.globalAlpha=.35+.35*Math.sin(s.p);cx.fillStyle='#fff';cx.fillRect(s.x,s.y,s.r,s.r)}
+ if(Math.random()<.05)P.push({k:'h',x:Math.random()*W,y:H+20,vx:0,vy:-(.5+Math.random()*1.1),s:4+Math.random()*8,l:1,c:C[Math.floor(Math.random()*3)],p:Math.random()*6});
+ if(Math.random()<.006)P.push({k:'m',x:W*.2+Math.random()*W*.8,y:0,vx:-7,vy:4,l:1});
+ P=P.filter(p=>{p.x+=p.vx;p.y+=p.vy;
+  if(p.k=='m'){p.l-=.02;cx.globalAlpha=Math.max(0,p.l);cx.strokeStyle='#fff';cx.lineWidth=1.5;cx.beginPath();cx.moveTo(p.x,p.y);cx.lineTo(p.x-p.vx*6,p.y-p.vy*6);cx.stroke();return p.l>0}
+  if(p.k=='b'){p.vy+=.12;p.l-=.011}else{p.x+=Math.sin(p.p+=.03)*.5;p.l=Math.min(1,p.y/(H*.35))}
+  heart(p.x,p.y,p.s,p.c,Math.max(0,p.l)*(p.k=='h'?.7:1));return p.l>0&&p.y<H+40});
+ requestAnimationFrame(loop)}
+loop();
+document.addEventListener('pointerdown',e=>{if(!e.target.closest('button,input,textarea,.card,.env,.box'))burst(e.clientX,e.clientY,10)});
+
+/* ---------- music: soft synthesized melody, no files needed ---------- */
+let ac,tm,st=0;
+const CH=[[220,261.63,329.63],[174.61,220,261.63],[261.63,329.63,392],[196,246.94,293.66]];
+function nt(f,d,v){const t=ac.currentTime,o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.value=f;
+ g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+.04);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(ac.destination);o.start(t);o.stop(t+d)}
+function music(on){try{
+ if(on){ac=ac||new(window.AudioContext||window.webkitAudioContext)();ac.resume();
+  if(!tm)tm=setInterval(()=>{const c=CH[Math.floor(st/6)%4];nt(c[[0,1,2,1,2,1][st%6]]*2,1.6,.05);if(st%6==0)nt(c[0]/2,3,.07);st++},480)}
+ else{clearInterval(tm);tm=null}
+ $('mus').textContent=on?'🎵':'🔇'}catch(e){}}
+$('mus').onclick=()=>music(!tm);
+
+/* ---------- letter ---------- */
+let fast=false,started=false;
+const sleep=ms=>new Promise(r=>setTimeout(r,fast?0:ms));
+async function type(el,t){el.classList.add('cursor');
+ for(const ch of t){if(fast){el.textContent=t;break}el.textContent+=ch;await sleep(ch==','||ch=='.'?170:26)}
+ el.classList.remove('cursor')}
+$('letter').addEventListener('click',()=>{fast=true});
+$('env').onclick=async()=>{
+ if(started)return;started=true;music(true);
+ $('hint').style.display='none';$('env').classList.add('open');await sleep(900);
+ $('env').classList.add('gone');await sleep(450);$('letter').classList.add('show');
+ for(const t of L){const p=document.createElement('p');$('body').append(p);await type(p,t);await sleep(300);p.scrollIntoView({behavior:'smooth',block:'center'})}
+ $('sig').textContent=FROM;$('sig').classList.add('on');$('skip').style.display='none';
+ await sleep(1000);
+ for(const id of ['s0','s1','s2','s3','s4']){if(id=='s2'&&!SINCE_OK)continue;$(id).classList.add('on');if(id=='s0')await revealPoem();await sleep(500)}
+};
+
+/* ---------- kobita ---------- */
+const DEFP=["তোমার চোখের আকাশে আমি হারিয়ে যেতে চাই,","তোমার হাসির আলোয় আমি নতুন সকাল পাই।",
+"তুমি এলে ফুল ফোটে মোর মনের বাগানে,","শূন্য এ বুক ভরে ওঠে তোমারই গানে।",
+"চাঁদ-তারা সব ম্লান হয়ে যায় তোমার পাশে এসে,","তুমি আমার স্বপ্ন ছিলে, এলে বাস্তব বেশে।",
+"যত দূরেই যাও না কেন, রবে তুমি মনে,","প্রতিটি শ্বাসে লেখা থাকবে তোমার নাম গোপনে।",
+"\"ভালোবাসি\" শব্দটা ছোট, অনুভূতি বিশাল,","তুমি আছ বলেই আমার প্রতিটি দিন সকাল।"];
+const customP=(q.get('poem')||'').split(/\n|\|/).map(s=>s.trim()).filter(Boolean);
+const PL=customP.length?customP:DEFP;
+$('s0').addEventListener('click',()=>{fast=true});
+async function revealPoem(){const box=$('pbody');
+ for(let i=0;i<PL.length;i+=2){const st=document.createElement('div');st.className='st';
+  PL.slice(i,i+2).forEach(t=>{const v=document.createElement('div');v.className='v';v.textContent=t;st.append(v)});box.append(st)}
+ for(const v of box.querySelectorAll('.v')){if(!v.previousElementSibling)v.scrollIntoView({behavior:'smooth',block:'center'});
+  v.classList.add('show');await sleep(1100)}
+ burst(innerWidth/2,innerHeight/2,25)}
+
+/* ---------- reasons cards ---------- */
+R.forEach(t=>{const c=document.createElement('div');c.className='card';
+ c.innerHTML='<div><span class="a">💗</span><span class="b"></span></div>';c.querySelector('.b').textContent=t;
+ c.onclick=()=>{c.classList.toggle('f');const r=c.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,8)};$('grid').append(c)});
+
+/* ---------- live counter ---------- */
+let SINCE_OK=false;
+if(SINCE){const d=new Date(SINCE+'T00:00:00');if(!isNaN(d)){SINCE_OK=true;
+ const u=()=>{const s=Math.max(0,Math.floor((Date.now()-d)/1000));
+  [Math.floor(s/86400),Math.floor(s%86400/3600),Math.floor(s%3600/60),s%60].forEach((v,i)=>$('d'+(i+1)).textContent=v)};u();setInterval(u,1000)}}
+
+/* ---------- love meter ---------- */
+let m=0,hold=null;
+function mstop(){clearInterval(hold);hold=null}
+$('mbtn').addEventListener('pointerdown',e=>{e.preventDefault();if(hold||m>=100)return;
+ hold=setInterval(()=>{m=Math.min(100,m+(m<70?1.2:.6));$('fill').style.width=m+'%';
+  $('mtxt').textContent=m>=100?'∞ It never ends 💞':Math.floor(m)+'%';
+  if(m>=100){mstop();burst(innerWidth/2,innerHeight/2,50)}},30)});
+['pointerup','pointerleave','pointercancel'].forEach(n=>$('mbtn').addEventListener(n,mstop));
+$('mbtn').addEventListener('contextmenu',e=>e.preventDefault());
+
+/* ---------- the question ---------- */
+const NO=['Let me think…','Are you sure? 🥺','Think again…','Pretty please?','Last chance 💔'];let n=0;
+function dodge(e){if(e)e.preventDefault();n++;const no=$('no');no.textContent=NO[n%NO.length];
+ no.style.transform=`translate(${(Math.random()-.5)*140}px,${(Math.random()-.5)*80}px)`;
+ $('yes').style.transform=`scale(${Math.min(1+n*.15,2)})`}
+$('no').addEventListener('pointerenter',dodge);$('no').addEventListener('click',dodge);
+$('yes').onclick=()=>{$('askbox').style.display='none';$('fin').classList.add('on');
+ let i=0;const t=setInterval(()=>{burst(Math.random()*innerWidth,Math.random()*innerHeight*.6,30);if(++i>14)clearInterval(t)},350);
+ $('fin').scrollIntoView({behavior:'smooth',block:'center'})};
+$('again').onclick=()=>location.reload();
+
+/* ---------- editor (shown to you, hidden once a name is in the link) ---------- */
+if(!q.has('to')||q.has('edit'))$('gear').style.display='';
+$('fto').value=q.get('to')||'';$('ffrom').value=q.get('from')||'';$('fsince').value=q.get('since')||'';$('fmsg').value=custom.join('\n');$('fpoem').value=customP.join('\n');
+function link(){const u=new URL(location.href);u.search='';
+ const f={to:$('fto').value.trim(),from:$('ffrom').value.trim(),since:$('fsince').value,msg:$('fmsg').value.trim().replace(/\n+/g,'|'),poem:$('fpoem').value.trim().replace(/\n+/g,'|')};
+ for(const k in f)if(f[k])u.searchParams.set(k,f[k]);return u.href}
+const upd=()=>{$('flink').value=link()};
+['fto','ffrom','fsince','fmsg','fpoem'].forEach(i=>$(i).addEventListener('input',upd));upd();
+$('gear').onclick=()=>{upd();$('ed').classList.add('on')};
+$('close').onclick=()=>$('ed').classList.remove('on');
+$('prev').onclick=()=>{location.href=link()};
+$('copy').onclick=async()=>{upd();try{await navigator.clipboard.writeText($('flink').value);$('copy').textContent='Copied ✓'}catch(e){$('flink').select();$('copy').textContent='Select &amp; copy ↑'.replace('&amp;','&')}};
+</script>
+</body>
+</html>
